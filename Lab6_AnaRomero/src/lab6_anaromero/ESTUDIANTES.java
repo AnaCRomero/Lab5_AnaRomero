@@ -5,21 +5,19 @@ package lab6_anaromero;
  * @author Ana Romero
  */
 public class ESTUDIANTES {
-    private String nombre,apellido,numCuenta,genero;
-    private int edad;
-    private float mensualidad;
-    private CARRERA carrera;
+    private String nombre,apellido,genero;
+    private int edad,numCuenta;
+    private String carrera;
 
     public ESTUDIANTES() {
     }
 
-    public ESTUDIANTES(String nombre, String apellido, String numCuenta, String genero, int edad, float mensualidad, CARRERA carrera) {
+    public ESTUDIANTES(String nombre, String apellido, int numCuenta, String genero, int edad, String carrera) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.numCuenta = numCuenta;
         this.genero = genero;
         this.edad = edad;
-        this.mensualidad = mensualidad;
         this.carrera = carrera;
     }
 
@@ -39,11 +37,11 @@ public class ESTUDIANTES {
         this.apellido = apellido;
     }
 
-    public String getNumCuenta() {
+    public int getNumCuenta() {
         return numCuenta;
     }
 
-    public void setNumCuenta(String numCuenta) {
+    public void setNumCuenta(int numCuenta) {
         this.numCuenta = numCuenta;
     }
 
@@ -63,21 +61,15 @@ public class ESTUDIANTES {
         this.edad = edad;
     }
 
-    public float getMensualidad() {
-        return mensualidad;
-    }
-
-    public void setMensualidad(float mensualidad) {
-        this.mensualidad = mensualidad;
-    }
-
-    public CARRERA getCarrera() {
+    public String getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(CARRERA carrera) {
+    public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
+
+    
 
     @Override
     public String toString() {
