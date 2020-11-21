@@ -73,6 +73,9 @@ public class MAIN extends javax.swing.JFrame {
         MENU_ARBOL = new javax.swing.JPopupMenu();
         EDIT = new javax.swing.JMenuItem();
         DELETE = new javax.swing.JMenuItem();
+        EDIT_TREE = new javax.swing.JPopupMenu();
+        EDITARR = new javax.swing.JMenuItem();
+        ELIMINARR = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -201,6 +204,22 @@ public class MAIN extends javax.swing.JFrame {
 
         DELETE.setText("Eliminar");
         MENU_ARBOL.add(DELETE);
+
+        EDITARR.setText("Editar");
+        EDITARR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EDITARRActionPerformed(evt);
+            }
+        });
+        EDIT_TREE.add(EDITARR);
+
+        ELIMINARR.setText("Eliminar");
+        ELIMINARR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ELIMINARRActionPerformed(evt);
+            }
+        });
+        EDIT_TREE.add(ELIMINARR);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -860,6 +879,11 @@ public class MAIN extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Carreras");
         JT_ESTUDIANTES.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        JT_ESTUDIANTES.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JT_ESTUDIANTESMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(JT_ESTUDIANTES);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -867,9 +891,9 @@ public class MAIN extends javax.swing.JFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1066,7 +1090,7 @@ public class MAIN extends javax.swing.JFrame {
     }//GEN-LAST:event_ELIMINARActionPerformed
 
     private void MODIFICAR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MODIFICAR1ActionPerformed
-        
+
         if (JL_C2.getSelectedIndex() >= 0) {
             int opcion = Integer.parseInt(JOptionPane.showInputDialog(this, "Que desea modificar:\n"
                     + "1. Nombre\n2. Seccion\n3.Edificio\n4.Salon"));
@@ -1119,29 +1143,28 @@ public class MAIN extends javax.swing.JFrame {
             DefaultTreeModel modeloARBOL = (DefaultTreeModel) JT_ESTUDIANTES.getModel();
             DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modeloARBOL.getRoot();
             DefaultListModel modeloLISTA = (DefaultListModel) JL_ESTUDIANTES.getModel();
-            
+
             String Carrera;
             ESTUDIANTES e;
-            e =  ((ESTUDIANTES) modeloLISTA.get(JL_ESTUDIANTES.getSelectedIndex())); 
-            Carrera = ((ESTUDIANTES) modeloLISTA.get(JL_ESTUDIANTES.getSelectedIndex())).getCarrera();   
+            e = ((ESTUDIANTES) modeloLISTA.get(JL_ESTUDIANTES.getSelectedIndex()));
+            Carrera = ((ESTUDIANTES) modeloLISTA.get(JL_ESTUDIANTES.getSelectedIndex())).getCarrera();
             int centinela = -1;
             for (int i = 0; i < raiz.getChildCount(); i++) {
-                if (raiz.getChildAt(i).toString(). equals(Carrera)) {
+                if (raiz.getChildAt(i).toString().equals(Carrera)) {
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
                     ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
                     centinela = 1;
                 }
-            }  
-            
+            }
+
             if (centinela == -1) {
                 DefaultMutableTreeNode n = new DefaultMutableTreeNode(Carrera);
                 DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
                 n.add(p);
                 raiz.add(n);
-            }         
+            }
             modeloARBOL.reload();
-            
-                        
+
         } else {
             JOptionPane.showMessageDialog(this,
                     "No hay persona seleccionada");
@@ -1162,8 +1185,8 @@ public class MAIN extends javax.swing.JFrame {
          modelo.addElement(new ESTUDIANTES(TF_NOMBRE.getText(), TF_APELLIDO.getText(), numCuenta, genero, Integer.parseInt(TF_EDAD.getText()), carrera));
             JOptionPane.showMessageDialog(this, "Estudiante exitosamente creado!");
             CB_LIC.setVisible(false);
-        */
-      //model.addElement(new MAESTROS(TF_NOMBREMAESTRO.getText(),TF_APELLIDOMAESTRO.getText(),Float.parseFloat(TF_SALARIOMAESTRO.getText()),Integer.parseInt(TF_EDADMAESTRO),));
+         */
+        //model.addElement(new MAESTROS(TF_NOMBREMAESTRO.getText(),TF_APELLIDOMAESTRO.getText(),Float.parseFloat(TF_SALARIOMAESTRO.getText()),Integer.parseInt(TF_EDADMAESTRO),));
     }//GEN-LAST:event_BTN_CREAR_CARRERA1MouseClicked
 
     private void BTN_CLASEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_CLASEMouseClicked
@@ -1199,6 +1222,38 @@ public class MAIN extends javax.swing.JFrame {
     private void BTN_CLASEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_CLASEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BTN_CLASEActionPerformed
+
+    private void EDITARRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EDITARRActionPerformed
+        DefaultTreeModel m = (DefaultTreeModel) JT_ESTUDIANTES.getModel();
+        estudiante_seleccionado.setNombre(JOptionPane.showInputDialog("Ingrese nuevo nombre"));
+        m.reload();
+    }//GEN-LAST:event_EDITARRActionPerformed
+
+    private void ELIMINARRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ELIMINARRActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this, "Seguro de Eliminar?", "Confirm",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (respuesta == JOptionPane.OK_OPTION) {
+            DefaultTreeModel m = (DefaultTreeModel) JT_ESTUDIANTES.getModel();
+            m.removeNodeFromParent(nodo_seleccionado);
+            m.reload();
+        }
+    }//GEN-LAST:event_ELIMINARRActionPerformed
+
+    private void JT_ESTUDIANTESMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_ESTUDIANTESMouseClicked
+        if (evt.isMetaDown()) {
+            int row = JT_ESTUDIANTES.getClosestRowForLocation(evt.getX(), evt.getY());
+            JT_ESTUDIANTES.setSelectionRow(row);
+            Object v1 = JT_ESTUDIANTES.getSelectionPath().getLastPathComponent();
+            nodo_seleccionado = (DefaultMutableTreeNode) v1;
+            if (nodo_seleccionado.getUserObject() instanceof ESTUDIANTES) {
+                estudiante_seleccionado = (ESTUDIANTES) nodo_seleccionado.getUserObject();
+                EDIT_TREE.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+
+        }
+    }//GEN-LAST:event_JT_ESTUDIANTESMouseClicked
 
     public static boolean metodoCuenta(int numCuenta) {
         for (int i = 0; i < list_NumCuenta.size(); i++) {
@@ -1255,8 +1310,11 @@ public class MAIN extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CB_SALUD;
     private javax.swing.JMenuItem DELETE;
     private javax.swing.JMenuItem EDIT;
+    private javax.swing.JMenuItem EDITARR;
+    private javax.swing.JPopupMenu EDIT_TREE;
     private javax.swing.JMenuItem ELIMINAR;
     private javax.swing.JMenuItem ELIMINAR1;
+    private javax.swing.JMenuItem ELIMINARR;
     private javax.swing.JList<String> JL_C;
     private javax.swing.JList<String> JL_C2;
     private javax.swing.JList<String> JL_ESTUDIANTES;
@@ -1342,4 +1400,6 @@ public class MAIN extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane3;
     // End of variables declaration//GEN-END:variables
     static ArrayList<Integer> list_NumCuenta = new ArrayList();
+    DefaultMutableTreeNode nodo_seleccionado;
+    ESTUDIANTES estudiante_seleccionado;
 }
