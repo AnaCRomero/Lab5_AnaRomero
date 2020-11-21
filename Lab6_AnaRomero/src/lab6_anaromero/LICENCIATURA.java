@@ -26,7 +26,7 @@ public class LICENCIATURA extends CARRERA{
 
     @Override
     public String toString() {
-        return "LICENCIATURA: "  + tipo;
+        return  tipo;
     }
     
     

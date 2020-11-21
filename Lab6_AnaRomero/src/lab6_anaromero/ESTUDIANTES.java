@@ -73,7 +73,7 @@ public class ESTUDIANTES {
 
     @Override
     public String toString() {
-        return "nombre:" + nombre + " apellido: " + apellido + " numero Cuenta: " + numCuenta + ", genero: " + genero + ", edad: " + edad  + carrera;
+        return "nombre:" + nombre + " apellido: " + apellido + ", genero: " + genero + ", edad: " + edad  + carrera;
     }
     
     

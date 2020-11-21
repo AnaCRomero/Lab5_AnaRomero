@@ -26,7 +26,7 @@ public class CIENCIA_SALUD extends CARRERA{
 
     @Override
     public String toString() {
-        return "CIENCIA DE LA SALUD:" + tipo;
+        return  tipo;
     }
     
     

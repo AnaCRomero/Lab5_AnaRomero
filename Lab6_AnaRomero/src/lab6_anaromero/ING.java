@@ -26,7 +26,7 @@ public class ING extends CARRERA{
 
     @Override
     public String toString() {
-        return "INGENIERIA: " + cadena;
+        return cadena;
     }
     
     
