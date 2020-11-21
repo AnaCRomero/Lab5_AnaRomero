@@ -50,6 +50,11 @@ public class CARRERA {
         this.costoMensualidad = costoMensualidad;
     }
 
+    @Override
+    public String toString() {
+        return "nombre=" + nombre + ", facultdad=" + facultdad + ", jefeCarrera=" + jefeCarrera + ", costoMensualidad=" + costoMensualidad ;
+    }
+
     
     
     

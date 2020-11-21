@@ -60,7 +60,7 @@ public class CLASES {
 
     @Override
     public String toString() {
-        return "CLASE:" + "nombre:" + nombre + "seccion: " + seccion + " edificio: " + edificio + " salon:" + salon;
+        return nombre ;
     }
     
     

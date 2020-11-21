@@ -76,6 +76,12 @@ public class MAIN extends javax.swing.JFrame {
         EDIT_TREE = new javax.swing.JPopupMenu();
         EDITARR = new javax.swing.JMenuItem();
         ELIMINARR = new javax.swing.JMenuItem();
+        MM = new javax.swing.JPopupMenu();
+        MOD = new javax.swing.JMenuItem();
+        DET = new javax.swing.JMenuItem();
+        MENU_maestro = new javax.swing.JPopupMenu();
+        MODI = new javax.swing.JMenuItem();
+        DELETEE = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -121,10 +127,12 @@ public class MAIN extends javax.swing.JFrame {
         TF_EDADMAESTRO = new javax.swing.JFormattedTextField();
         TF_SALARIOMAESTRO = new javax.swing.JFormattedTextField();
         jLabel16 = new javax.swing.JLabel();
-        BTN_CREAR_CARRERA1 = new javax.swing.JButton();
+        BTN_CREAR_MAESTRO = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         JL_M = new javax.swing.JList<>();
         jLabel23 = new javax.swing.JLabel();
+        CB_CLASES = new javax.swing.JComboBox<>();
+        BTN_PASAR = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -151,6 +159,8 @@ public class MAIN extends javax.swing.JFrame {
         JL_C = new javax.swing.JList<>();
         jPanel9 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        JL_C1 = new javax.swing.JList<>();
         jPanel10 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -203,6 +213,11 @@ public class MAIN extends javax.swing.JFrame {
         MENU_ARBOL.add(EDIT);
 
         DELETE.setText("Eliminar");
+        DELETE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DELETEActionPerformed(evt);
+            }
+        });
         MENU_ARBOL.add(DELETE);
 
         EDITARR.setText("Editar");
@@ -220,6 +235,39 @@ public class MAIN extends javax.swing.JFrame {
             }
         });
         EDIT_TREE.add(ELIMINARR);
+
+        MOD.setText("Modificar");
+        MOD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MODActionPerformed(evt);
+            }
+        });
+        MM.add(MOD);
+
+        DET.setText("Eliminar");
+        DET.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DETActionPerformed(evt);
+            }
+        });
+        MM.add(DET);
+
+        MODI.setText("Modificar");
+        MODI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MODIActionPerformed(evt);
+            }
+        });
+        MENU_maestro.add(MODI);
+
+        DELETEE.setText("Eliminar");
+        DELETEE.setToolTipText("");
+        DELETEE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DELETEEActionPerformed(evt);
+            }
+        });
+        MENU_maestro.add(DELETEE);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -511,15 +559,15 @@ public class MAIN extends javax.swing.JFrame {
 
         TF_EDADMAESTRO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
 
-        TF_SALARIOMAESTRO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        TF_SALARIOMAESTRO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
 
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel16.setText("Salario:");
 
-        BTN_CREAR_CARRERA1.setText("Crear Maestro");
-        BTN_CREAR_CARRERA1.addMouseListener(new java.awt.event.MouseAdapter() {
+        BTN_CREAR_MAESTRO.setText("Crear Maestro");
+        BTN_CREAR_MAESTRO.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BTN_CREAR_CARRERA1MouseClicked(evt);
+                BTN_CREAR_MAESTROMouseClicked(evt);
             }
         });
 
@@ -528,6 +576,13 @@ public class MAIN extends javax.swing.JFrame {
 
         jLabel23.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel23.setText("Clases impartidas:");
+
+        BTN_PASAR.setText(">");
+        BTN_PASAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTN_PASARMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -539,27 +594,29 @@ public class MAIN extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TF_EDADMAESTRO)
-                    .addComponent(TF_APELLIDOMAESTRO, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                    .addComponent(TF_NOMBREMAESTRO))
-                .addGap(27, 27, 27)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(TF_EDADMAESTRO, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TF_APELLIDOMAESTRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                    .addComponent(TF_NOMBREMAESTRO, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TF_SALARIOMAESTRO))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BTN_CREAR_CARRERA1))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)
-                                .addComponent(TF_SALARIOMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(CB_CLASES, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BTN_PASAR)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(BTN_CREAR_MAESTRO)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addGap(58, 58, 58))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,21 +627,26 @@ public class MAIN extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(TF_NOMBREMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(TF_SALARIOMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(TF_APELLIDOMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel15)
-                        .addComponent(TF_EDADMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(TF_APELLIDOMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(TF_EDADMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CB_CLASES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTN_PASAR))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(TF_SALARIOMAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTN_CREAR_CARRERA1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(BTN_CREAR_MAESTRO, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -769,6 +831,11 @@ public class MAIN extends javax.swing.JFrame {
         jLabel27.setOpaque(true);
 
         JL_C.setModel(new DefaultListModel());
+        JL_C.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JL_CMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(JL_C);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -800,18 +867,32 @@ public class MAIN extends javax.swing.JFrame {
         jLabel28.setText("MAESTROS");
         jLabel28.setOpaque(true);
 
+        JL_C1.setModel(new DefaultListModel());
+        JL_C1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JL_C1MouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(JL_C1);
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel28)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Maestros", jPanel9);
@@ -995,10 +1076,10 @@ public class MAIN extends javax.swing.JFrame {
 
         if (RB_LIC.isSelected()) {
             LICENCIATURA lic = new LICENCIATURA("Licenciatura", TF_NOMBRECARRERA.getText(), "Licenciatura", TF_JEFECARRERA.getText(), Float.parseFloat(TF_MENSUALIDADCARRERA.getText()));
-            DefaultComboBoxModel lice = (DefaultComboBoxModel) CB_LIC.getModel();
-            lice.addElement(lic);
             JOptionPane.showMessageDialog(this, "Carrera exitosamente creado!");
             modelo.addElement(lic);
+            DefaultComboBoxModel lice = (DefaultComboBoxModel) CB_LIC.getModel();
+            lice.addElement(lic);
             CB_LIC.setModel(lice);
             TF_NOMBRECARRERA.setText("");
             TF_JEFECARRERA.setText("");
@@ -1179,15 +1260,17 @@ public class MAIN extends javax.swing.JFrame {
         }//que seleccione algo
     }//GEN-LAST:event_JL_ESTUDIANTESMouseClicked
 
-    private void BTN_CREAR_CARRERA1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_CREAR_CARRERA1MouseClicked
+    private void BTN_CREAR_MAESTROMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_CREAR_MAESTROMouseClicked
         DefaultListModel model = (DefaultListModel) JL_M.getModel();
-        /*
-         modelo.addElement(new ESTUDIANTES(TF_NOMBRE.getText(), TF_APELLIDO.getText(), numCuenta, genero, Integer.parseInt(TF_EDAD.getText()), carrera));
-            JOptionPane.showMessageDialog(this, "Estudiante exitosamente creado!");
-            CB_LIC.setVisible(false);
-         */
-        //model.addElement(new MAESTROS(TF_NOMBREMAESTRO.getText(),TF_APELLIDOMAESTRO.getText(),Float.parseFloat(TF_SALARIOMAESTRO.getText()),Integer.parseInt(TF_EDADMAESTRO),));
-    }//GEN-LAST:event_BTN_CREAR_CARRERA1MouseClicked
+        ArrayList<CLASES> clasesitas = new ArrayList();
+        for (int i = 0; i < model.getSize(); i++) {
+            CLASES c = (CLASES)model.getElementAt(i);
+            clasesitas.add(c);
+        }
+        DefaultListModel modelo2 = (DefaultListModel) JL_C1.getModel();
+        modelo2.addElement(new MAESTROS(TF_NOMBREMAESTRO.getText(), TF_APELLIDOMAESTRO.getText(), Float.parseFloat(TF_SALARIOMAESTRO.getText()), Integer.parseInt(TF_EDADMAESTRO.getText()),clasesitas));
+        JOptionPane.showMessageDialog(this, "Maestro exitosamente creado!");
+    }//GEN-LAST:event_BTN_CREAR_MAESTROMouseClicked
 
     private void BTN_CLASEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_CLASEMouseClicked
         DefaultListModel modelo = (DefaultListModel) JL_C2.getModel();
@@ -1197,8 +1280,12 @@ public class MAIN extends javax.swing.JFrame {
         } else {
             aire = "no";
         }
+        CLASES x = new CLASES(TF_CLASE.getText(), TF_SECCION.getText(), TF_EDIFICIO.getText(), TF_Salon.getText(), aire);
+        modelo.addElement(x);
+        DefaultComboBoxModel cbm = (DefaultComboBoxModel) CB_CLASES.getModel();
+        cbm.addElement(x);
+        CB_CLASES.setModel(cbm);
 
-        modelo.addElement(new CLASES(TF_CLASE.getText(), TF_SECCION.getText(), TF_EDIFICIO.getText(), TF_Salon.getText(), aire));
         JOptionPane.showMessageDialog(this, "Clase exitosamente creado!");
         TF_CLASE.setText("");
         TF_SECCION.setText("");
@@ -1255,6 +1342,129 @@ public class MAIN extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JT_ESTUDIANTESMouseClicked
 
+    private void DETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DETActionPerformed
+        if (JL_C.getSelectedIndex() >= 0) {
+            int response = JOptionPane.showConfirmDialog(this, "Seguro de Eliminar?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.OK_OPTION) {
+                DefaultListModel modelo = (DefaultListModel) JL_C.getModel();
+                modelo.remove(JL_C.getSelectedIndex());
+                JL_C.setModel(modelo);
+                JOptionPane.showMessageDialog(this, "Eliminado exitosamente!");
+            }
+        }
+    }//GEN-LAST:event_DETActionPerformed
+
+    private void DELETEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEActionPerformed
+
+    }//GEN-LAST:event_DELETEActionPerformed
+
+    private void JL_CMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JL_CMouseClicked
+        if (JL_C.getSelectedIndex() >= 0) {
+            if (evt.isMetaDown()) {
+                MM.show(evt.getComponent(), evt.getX(), evt.getY());
+            }//valida que sea click derecho
+        }//que seleccione algo
+    }//GEN-LAST:event_JL_CMouseClicked
+
+    private void MODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MODActionPerformed
+        if (JL_C.getSelectedIndex() >= 0) {
+            int opcion = Integer.parseInt(JOptionPane.showInputDialog(this, "Que desea modificar:\n"
+                    + "1. Nombre\n2.Costo Mensual\n3.Jefe de carrera"));
+            switch (opcion) {
+                case 1:
+                    DefaultListModel modeloLista = (DefaultListModel) JL_C.getModel();
+                    ((CARRERA) modeloLista.get(JL_C.getSelectedIndex())).setNombre(JOptionPane.showInputDialog("Nombre"));
+                    JL_C.setModel(modeloLista);
+                    JOptionPane.showMessageDialog(this, "Modificacion exitosa!");
+                    break;
+                case 2:
+                    DefaultListModel modeloLista1 = (DefaultListModel) JL_C.getModel();
+                    ((CARRERA) modeloLista1.get(JL_C.getSelectedIndex())).setCostoMensualidad(Integer.parseInt(JOptionPane.showInputDialog("Costo Menusal")));
+                    JL_C.setModel(modeloLista1);
+                    JOptionPane.showMessageDialog(this, "Modificacion exitosa!");
+                    break;
+                case 3:
+                    DefaultListModel modeloLista2 = (DefaultListModel) JL_C.getModel();
+                    ((CARRERA) modeloLista2.get(JL_C.getSelectedIndex())).setNombre(JOptionPane.showInputDialog("Jefe de carrera"));
+                    JL_C.setModel(modeloLista2);
+                    JOptionPane.showMessageDialog(this, "Modificacion exitosa!");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Opcion no valida!");
+            }
+        }
+    }//GEN-LAST:event_MODActionPerformed
+
+    private void BTN_PASARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTN_PASARMouseClicked
+        if (CB_CLASES.getSelectedIndex() >= 0) {
+            DefaultComboBoxModel cbc = (DefaultComboBoxModel) CB_CLASES.getModel();
+            DefaultListModel modeloA = (DefaultListModel) JL_M.getModel();
+            CLASES clase = (CLASES) CB_CLASES.getSelectedItem();
+            modeloA.addElement(clase);
+            JL_M.setModel(modeloA);
+            cbc.removeElement((CLASES) CB_CLASES.getSelectedItem());
+            CB_CLASES.setModel(cbc);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selleccione una clase primero, si no aparecen clases entonces cree una");
+        }
+    }//GEN-LAST:event_BTN_PASARMouseClicked
+
+    private void JL_C1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JL_C1MouseClicked
+         if (JL_C1.getSelectedIndex() >= 0) {
+            if (evt.isMetaDown()) {
+                MENU_maestro.show(evt.getComponent(), evt.getX(), evt.getY());
+            }//valida que sea click derecho
+        }//que seleccione algo
+    }//GEN-LAST:event_JL_C1MouseClicked
+
+    private void DELETEEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DELETEEActionPerformed
+       if (JL_C1.getSelectedIndex() >= 0) {
+            int response = JOptionPane.showConfirmDialog(this, "Seguro de Eliminar?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.OK_OPTION) {
+                DefaultListModel modelo = (DefaultListModel) JL_C1.getModel();
+                modelo.remove(JL_C1.getSelectedIndex());
+                JL_C1.setModel(modelo);
+                JOptionPane.showMessageDialog(this, "Eliminado exitosamente!");
+            }
+        }
+    }//GEN-LAST:event_DELETEEActionPerformed
+
+    private void MODIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MODIActionPerformed
+        if (JL_C1.getSelectedIndex() >= 0) {
+            int opcion = Integer.parseInt(JOptionPane.showInputDialog(this, "Que desea modificar:\n"
+                    + "1. Nombre\n2. Apellido\n3.Salario\n4.Edad"));
+            switch (opcion) {
+                case 1:
+                    DefaultListModel modeloLista = (DefaultListModel) JL_C1.getModel();
+                    ((MAESTROS) modeloLista.get(JL_C1.getSelectedIndex())).setNombre(JOptionPane.showInputDialog("Nombre"));
+                    JL_C1.setModel(modeloLista);
+                    JOptionPane.showMessageDialog(this, "Modificacion exitosa!");
+                    break;
+                case 2:
+                    DefaultListModel modeloLista1 = (DefaultListModel) JL_C1.getModel();
+                    ((MAESTROS) modeloLista1.get(JL_C1.getSelectedIndex())).setApellido(JOptionPane.showInputDialog("Apellido"));
+                    JL_C1.setModel(modeloLista1);
+                    JOptionPane.showMessageDialog(this, "Modificacion exitosa!");
+                    break;
+                case 3:
+                    DefaultListModel modeloLista2 = (DefaultListModel) JL_C1.getModel();
+                    ((MAESTROS) modeloLista2.get(JL_C1.getSelectedIndex())).setSalario(Integer.parseInt(JOptionPane.showInputDialog("Salario")));
+                    JL_ESTUDIANTES.setModel(modeloLista2);
+                    JOptionPane.showMessageDialog(this, "Modificacion exitosa!");
+                    break;
+                case 4:
+                    DefaultListModel modeloLista3 = (DefaultListModel) JL_C1.getModel();
+                    ((MAESTROS) modeloLista3.get(JL_C1.getSelectedIndex())).setEdad(Integer.parseInt(JOptionPane.showInputDialog("Edad")));
+                    JL_C1.setModel(modeloLista3);
+                    JOptionPane.showMessageDialog(this, "Modificacion exitosa!");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Opcion no valida!");
+            }
+
+        }
+    }//GEN-LAST:event_MODIActionPerformed
+
     public static boolean metodoCuenta(int numCuenta) {
         for (int i = 0; i < list_NumCuenta.size(); i++) {
             if (list_NumCuenta.get(i) == numCuenta) {
@@ -1303,12 +1513,16 @@ public class MAIN extends javax.swing.JFrame {
     private javax.swing.ButtonGroup BG_SEXO;
     private javax.swing.JButton BTN_CLASE;
     private javax.swing.JButton BTN_CREAR_CARRERA;
-    private javax.swing.JButton BTN_CREAR_CARRERA1;
     private javax.swing.JButton BTN_CREAR_ESTUDIANTE;
+    private javax.swing.JButton BTN_CREAR_MAESTRO;
+    private javax.swing.JButton BTN_PASAR;
+    private javax.swing.JComboBox<String> CB_CLASES;
     private javax.swing.JComboBox<String> CB_ING1;
     private javax.swing.JComboBox<String> CB_LIC;
     private javax.swing.JComboBox<String> CB_SALUD;
     private javax.swing.JMenuItem DELETE;
+    private javax.swing.JMenuItem DELETEE;
+    private javax.swing.JMenuItem DET;
     private javax.swing.JMenuItem EDIT;
     private javax.swing.JMenuItem EDITARR;
     private javax.swing.JPopupMenu EDIT_TREE;
@@ -1316,6 +1530,7 @@ public class MAIN extends javax.swing.JFrame {
     private javax.swing.JMenuItem ELIMINAR1;
     private javax.swing.JMenuItem ELIMINARR;
     private javax.swing.JList<String> JL_C;
+    private javax.swing.JList<String> JL_C1;
     private javax.swing.JList<String> JL_C2;
     private javax.swing.JList<String> JL_ESTUDIANTES;
     private javax.swing.JList<String> JL_M;
@@ -1323,6 +1538,10 @@ public class MAIN extends javax.swing.JFrame {
     private javax.swing.JMenuItem JTree;
     private javax.swing.JPopupMenu MENU;
     private javax.swing.JPopupMenu MENU_ARBOL;
+    private javax.swing.JPopupMenu MENU_maestro;
+    private javax.swing.JPopupMenu MM;
+    private javax.swing.JMenuItem MOD;
+    private javax.swing.JMenuItem MODI;
     private javax.swing.JMenuItem MODIFICAR;
     private javax.swing.JMenuItem MODIFICAR1;
     private javax.swing.JPopupMenu POP_ADMI;
@@ -1394,6 +1613,7 @@ public class MAIN extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
